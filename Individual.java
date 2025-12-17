@@ -17,8 +17,11 @@ public class Individual {
 		}
 	}
 
-	
-	public List<Gene> getGenes() {
+    public Individual() {
+        this.genes = new ArrayList<>();
+    }
+
+    public List<Gene> getGenes() {
 		return genes;
 	}
 
