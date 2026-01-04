@@ -1,9 +1,9 @@
-package view;
+package sudoku.view;
 
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
-import model.Individual;
+import sudoku.model.Individual;
 
 public class SudokuFrame extends JFrame {
     private JTextField[][] cells = new JTextField[9][9];

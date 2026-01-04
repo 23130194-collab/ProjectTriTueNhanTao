@@ -1,10 +1,10 @@
-package controller;
+package sudoku.controller;
 
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
-import model.SudokuEngine;
-import model.SudokuGenerator;
-import view.SudokuFrame;
+import sudoku.model.SudokuEngine;
+import sudoku.model.SudokuGenerator;
+import sudoku.view.SudokuFrame;
 
 public class SudokuController {
     private SudokuFrame view;
@@ -30,7 +30,7 @@ public class SudokuController {
             if (isRunning) return; // Nếu đang giải thì không cho bấm
             
             // Tạo mới
-            int[][] newBoard = generator.generate(50); 
+            int[][] newBoard = generator.generate(45);
             view.setBoardData(newBoard);
             view.updateStatus("Đã tạo mới. Nhấn Giải để bắt đầu.");
         });

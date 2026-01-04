@@ -1,4 +1,4 @@
-package model;
+package sudoku.model;
 
 import java.util.ArrayList;
 import java.util.*;
@@ -36,10 +36,10 @@ public class Individual implements Comparable<Individual>{
 
     // Hàm thực hiện đột biến trên cá thể
     public void mutate(double mutationRate) {
-        Random rand = new Random();
+        Random random = new Random();
         for (Gene gene : genes) {
             // Với mỗi hàng, có xác suất mutationRate sẽ bị đột biến
-            if (rand.nextDouble() < mutationRate) {
+            if (random.nextDouble() < mutationRate) {
                 gene.mutate();
             }
         }
@@ -51,29 +51,29 @@ public class Individual implements Comparable<Individual>{
     public void calculateFitness() {
         int score = 0;
 
-        // 1. Kiểm tra các Cột (Columns)
+        // 1. Kiểm tra các cột
         for (int col = 0; col < 9; col++) {
-            Set<Integer> uniqueNumbers = new HashSet<>();
+            Set<Integer> num = new HashSet<>();
             for (int row = 0; row < 9; row++) {
-                uniqueNumbers.add(genes.get(row).getNumber().get(col));
+                num.add(genes.get(row).getNumber().get(col));
             }
-            score += uniqueNumbers.size(); // Càng nhiều số khác nhau càng điểm cao
+            score += num.size(); // Càng nhiều số khác nhau càng điểm cao
         }
 
-        // 2. Kiểm tra các Khối 3x3 (Blocks)
+        // 2. Kiểm tra các khối 3x3
         for (int blockRow = 0; blockRow < 3; blockRow++) {
             for (int blockCol = 0; blockCol < 3; blockCol++) {
-                Set<Integer> uniqueNumbers = new HashSet<>();
+                Set<Integer> num = new HashSet<>();
                 
                 // Duyệt qua 9 ô trong khối
                 for (int i = 0; i < 3; i++) {
                     for (int j = 0; j < 3; j++) {
-                        int r = blockRow * 3 + i;
-                        int c = blockCol * 3 + j;
-                        uniqueNumbers.add(genes.get(r).getNumber().get(c));
+                        int row = blockRow * 3 + i;
+                        int col = blockCol * 3 + j;
+                        num.add(genes.get(row).getNumber().get(col));
                     }
                 }
-                score += uniqueNumbers.size();
+                score += num.size();
             }
         }
 

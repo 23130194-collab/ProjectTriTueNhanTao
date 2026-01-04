@@ -1,9 +1,6 @@
-package model;
+package sudoku.model;
 
 import java.util.function.Consumer;
-
-import model.Individual;
-import model.Population;
 
 public class SudokuEngine {
     
@@ -70,8 +67,8 @@ public class SudokuEngine {
 
             // Nếu điểm không đổi trong 100 thế hệ -> Kẹt -> Tạo quần thể mới hoàn toàn
             // (Con số 100 có thể tùy chỉnh, càng lớn thì càng kiên nhẫn)
-            if (count > 50) {
-                System.out.println("!!!Không thành công, số điểm cao nhất " + currentFitness + "! Khởi tạo quần thể mới...");
+            if (count > 150) {
+                System.out.println("Không thành công, số điểm cao nhất " + currentFitness + "! Khởi tạo quần thể mới...");
                 pop = new Population(initialBoard);
                 count = 0;
                 bestFitness = 0;

@@ -1,4 +1,4 @@
-package model;
+package sudoku.model;
 
 import java.util.ArrayList;
 import java.util.*;
@@ -50,24 +50,24 @@ public class Gene {
 	
 	// Hàm đột biến: Hoán đổi 2 vị trí không cố định
     public void mutate() {
-        Random rand = new Random();
+        Random random = new Random();
         
         // Tìm 2 vị trí ngẫu nhiên để swap
-        int idx1 = rand.nextInt(9);
-        int idx2 = rand.nextInt(9);
+        int index1 = random.nextInt(9);
+        int index2 = random.nextInt(9);
         
-        // Chỉ swap nếu cả 2 vị trí đều KHÔNG PHẢI là số đề bài cho (isFixed = false)
-        // Ta lặp tối đa vài lần để tìm cặp hợp lệ, tránh while true gây treo nếu hàng full fixed
-        int retries = 0;
-        while ((isFixed[idx1] || isFixed[idx2] || idx1 == idx2) && retries < 10) {
-            idx1 = rand.nextInt(9);
-            idx2 = rand.nextInt(9);
-            retries++;
+        // Chỉ swap nếu cả 2 vị trí đều kh phải là số đề bài cho (isFixed = false)
+        // lặp tối đa vài lần để tìm cặp hợp lệ, tránh while true gây treo nếu hàng full fixed
+        int count = 0;
+        while ((isFixed[index1] || isFixed[index2] || index1 == index2) && count < 10) {
+            index1 = random.nextInt(9);
+            index2 = random.nextInt(9);
+            count++;
         }
 
         // Thực hiện swap nếu tìm được vị trí hợp lệ
-        if (!isFixed[idx1] && !isFixed[idx2] && idx1 != idx2) {
-            Collections.swap(this.number, idx1, idx2);
+        if (!isFixed[index1] && !isFixed[index2] && index1 != index2) {
+            Collections.swap(this.number, index1, index2);
         }
     }
 	

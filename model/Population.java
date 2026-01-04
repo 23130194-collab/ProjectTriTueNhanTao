@@ -1,4 +1,4 @@
-package model;
+package sudoku.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -64,24 +64,24 @@ public class Population {
         // 1. Lai ghép để tạo con cái
         List<Individual> children = crossover();
 
-        // 2. Gộp Cha mẹ và Con cái vào một danh sách lớn (Pool)
-        List<Individual> largePool = new ArrayList<>(this.individuals);
-        largePool.addAll(children);
+        // 2. Gộp Cha mẹ và Con cái vào một danh sách
+        List<Individual> list = new ArrayList<>(this.individuals);
+        list.addAll(children);
 
-        // 3. Đột biến và Tính điểm cho TOÀN BỘ pool
-        for (Individual ind : largePool) {
+        // 3. Đột biến và tính điểm cho tất cả cá thể
+        for (Individual ind : list) {
             ind.mutate(Utility.MUTATION_RATE); // Đột biến
             ind.calculateFitness();            // Tính điểm lại sau khi đột biến
         }
 
         // 4. Sắp xếp theo Fitness (từ cao xuống thấp)
-        Collections.sort(largePool);
+        Collections.sort(list);
 
         // 5. Chọn lọc tự nhiên (Natural Selection)
         // Chỉ giữ lại POPULATION_SIZE cá thể tốt nhất cho thế hệ sau
         this.individuals = new ArrayList<>();
-        for (int i = 0; i < Utility.POPULATION_SIZE && i < largePool.size(); i++) {
-            this.individuals.add(largePool.get(i));
+        for (int i = 0; i < Utility.POPULATION_SIZE && i < list.size(); i++) {
+            this.individuals.add(list.get(i));
         }
         
         // In ra cá thể tốt nhất thế hệ này để theo dõi
