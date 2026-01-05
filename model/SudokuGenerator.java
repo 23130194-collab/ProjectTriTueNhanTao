@@ -17,19 +17,19 @@ public class SudokuGenerator {
             System.arraycopy(Utility.BASE_GRID[i], 0, board[i], 0, 9);
         }
 
-        // Thực hiện các phép biến đổi ngẫu nhiên (Shuffle)
-        // Các phép này thay đổi vị trí số nhưng KHÔNG phá vỡ luật Sudoku
+        // Thực hiện biến đổi ngẫu nhiên
+        // Các phép này thay đổi vị trí số nhưng không sai luật
         shuffleRows();      // Trộn các hàng trong cùng một nhóm
         shuffleCols();      // Trộn các cột trong cùng một nhóm
-        shuffleGroupRows();     // Trộn các nhóm hàng lớn (Band)
-        shuffleGroupCols();    // Trộn các nhóm cột lớn (Stack)
+        shuffleGroupRows();     // Trộn các nhóm hàng lớn
+        shuffleGroupCols();    // Trộn các nhóm cột lớn
         
         // Xoay bàn cờ ngẫu nhiên
         if (random.nextBoolean()) {
             transpose();
         }
 
-        // Bước 3: Xóa bớt số để tạo thành đề bài
+        //Xóa bớt số để tạo đề mới
         removeDigits(missingDigits);
 
         return board;
@@ -37,7 +37,7 @@ public class SudokuGenerator {
 
 
     // Trộn hàng: Chỉ đổi chỗ các hàng trong cùng một nhóm 3x3
-    // Ví dụ: Có thể đổi hàng 0 với 1, nhưng KHÔNG được đổi hàng 0 với 5
+    // Vd: Có thể đổi hàng 0 với 1, nhưng kh được đổi hàng 0 với 5
     private void shuffleRows() {
         for (int group = 0; group < 9; group += 3) {
             // Lặp vài lần để xáo trộn kỹ
@@ -88,7 +88,7 @@ public class SudokuGenerator {
     }
     
     private void swapGroupRows(int b1, int b2) {
-        // Mỗi group có 3 hàng. Group 0: row 0,1,2. Group 1: row 3,4,5...
+        // Mỗi group có 3 hàng
         int start1 = b1 * 3;
         int start2 = b2 * 3;
         
@@ -97,7 +97,7 @@ public class SudokuGenerator {
         }
     }
 
-    // Trộn group col: Đổi chỗ nguyên cả cụm 3 cột
+    // Trộn group col: Đổi chỗ nguyên cụm 3 cột
     private void shuffleGroupCols() {
         for (int i = 0; i < 3; i++) {
             int stack1 = random.nextInt(3);
@@ -117,7 +117,7 @@ public class SudokuGenerator {
         }
     }
 
-    // Xoay đổi hàng thành cột (Xoay qua đường chéo chính)
+    // Xoay đổi hàng thành cột
     private void transpose() {
         for (int i = 0; i < 9; i++) {
             for (int j = i + 1; j < 9; j++) {

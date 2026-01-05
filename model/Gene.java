@@ -48,7 +48,7 @@ public class Gene {
 	    this.isFixed = other.isFixed.clone();
 	}
 	
-	// Hàm đột biến: Hoán đổi 2 vị trí không cố định
+	// pthuc đột biến: đổi 2 số có vị trí không cố định, không phải số đề cho
     public void mutate() {
         Random random = new Random();
         
@@ -57,7 +57,6 @@ public class Gene {
         int index2 = random.nextInt(9);
         
         // Chỉ swap nếu cả 2 vị trí đều kh phải là số đề bài cho (isFixed = false)
-        // lặp tối đa vài lần để tìm cặp hợp lệ, tránh while true gây treo nếu hàng full fixed
         int count = 0;
         while ((isFixed[index1] || isFixed[index2] || index1 == index2) && count < 10) {
             index1 = random.nextInt(9);

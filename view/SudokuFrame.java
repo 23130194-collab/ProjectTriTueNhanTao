@@ -1,5 +1,6 @@
 package sudoku.view;
 
+import java.util.List;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
@@ -16,7 +17,7 @@ public class SudokuFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        // 1. Bàn cờ (CENTER)
+        //Bàn cờ
         JPanel pnlBoard = new JPanel(new GridLayout(9, 9));
         pnlBoard.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -40,7 +41,7 @@ public class SudokuFrame extends JFrame {
         }
         add(pnlBoard, BorderLayout.CENTER);
 
-        // 2. Panel điều khiển (SOUTH)
+        //Panel điều khiển
         JPanel pnlControl = new JPanel();
         btnGenerate = new JButton("Tạo Mới");
         btnClear = new JButton("Tự Nhập / Xóa");
@@ -64,7 +65,7 @@ public class SudokuFrame extends JFrame {
                 try {
                     board[i][j] = text.isEmpty() ? 0 : Integer.parseInt(text);
                 } catch (NumberFormatException e) {
-                    board[i][j] = 0; // Nếu nhập chữ bậy bạ thì coi như là 0
+                    board[i][j] = 0; // Nếu nhập chữ thì coi như là 0
                 }
             }
         }
@@ -94,7 +95,7 @@ public class SudokuFrame extends JFrame {
     public void updateBoardFromIndividual(Individual ind) {
         // Individual chứa List<Gene>, mỗi Gene là một hàng
         for (int i = 0; i < 9; i++) {
-            java.util.List<Integer> rowData = ind.getGenes().get(i).getNumber();
+            List<Integer> rowData = ind.getGenes().get(i).getNumber();
             for (int j = 0; j < 9; j++) {
                 // Chỉ cập nhật các ô màu đen (ô giải), giữ nguyên ô màu xanh (ô đề)
                 if (cells[i][j].isEditable()) {

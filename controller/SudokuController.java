@@ -10,8 +10,6 @@ public class SudokuController {
     private SudokuFrame view;
     private SudokuEngine engine;
     private SudokuGenerator generator;
-    
-    // Biến dùng để theo dõi trạng thái đang chạy hay đang dừng
     private boolean isRunning = false;
 
     public SudokuController(SudokuFrame view) {
@@ -25,7 +23,7 @@ public class SudokuController {
     }
 
     private void initController() {
-        // 1. Xử lý nút "Tạo Mới"
+        // xử lý nút "Tạo Mới"
         view.getBtnGenerate().addActionListener(e -> {
             if (isRunning) return; // Nếu đang giải thì không cho bấm
             
@@ -35,7 +33,7 @@ public class SudokuController {
             view.updateStatus("Đã tạo mới. Nhấn Giải để bắt đầu.");
         });
 
-        // 2. Xử lý nút "Tự Nhập / Xóa"
+        //xử lý nút "Tự Nhập / Xóa"
         view.getBtnClear().addActionListener(e -> {
             if (isRunning) return;
             
@@ -43,30 +41,29 @@ public class SudokuController {
             view.updateStatus("Mời bạn nhập đề sudoku...");
         });
 
-        // 3. Xử lý nút "GIẢI / DỪNG"
+        //xử lý nút "GIẢI / DỪNG"
         view.getBtnSolve().addActionListener(e -> {
             if (isRunning) {
-                // Nếu đang chạy -> Bấm để DỪNG
+                // Nếu đang chạy -> Bấm để dừng
                 stop();
             } else {
-                // Nếu đang dừng -> Bấm để CHẠY
+                // Nếu đang dừng -> Bấm để chạy
                 start();
             }
         });
     }
 
     private void start() {
-        // BƯỚC 1: Lấy dữ liệu từ giao diện (bao gồm cả số người dùng tự nhập)
+        //Lấy dữ liệu từ giao diện (bao gồm cả số người dùng tự nhập)
         int[][] inputBoard = view.getBoardData();
         
-        // BƯỚC 2: Format lại giao diện
-        // Dòng này sẽ biến các số người dùng vừa nhập thành màu XANH (Blue/Gray) 
-        // và KHÓA lại (setEditable=false) giống như đề bài ngẫu nhiên.
+        //format lại giao diện
+        // Dòng này sẽ biến các số người dùng vừa nhập thành màu xanh
+        // và khóa lại (setEditable=false) giống đề bài ngẫu nhiên.
         view.setBoardData(inputBoard);
 
-        // BƯỚC 3: Cấu hình Engine để cập nhật giao diện khi chạy
+        // cấu hình Engine để cập nhật giao diện khi chạy
         engine.setOnGenerationEvolved(ind -> {
-            // Việc cập nhật UI phải ném vào luồng Swing (EDT) để an toàn
             SwingUtilities.invokeLater(() -> {
                 view.updateBoardFromIndividual(ind);
                 view.updateStatus("Fitness: " + ind.getFitness() + "/162 | Gen: đang chạy...");
@@ -79,7 +76,6 @@ public class SudokuController {
         view.getBtnGenerate().setEnabled(false);
         view.getBtnClear().setEnabled(false);
 
-        // BƯỚC 4: Chạy thuật toán trên luồng riêng (SwingWorker)
         SwingWorker<Void, Void> worker = new SwingWorker<>() {
             @Override
             protected Void doInBackground() throws Exception {
@@ -100,10 +96,10 @@ public class SudokuController {
     }
 
     private void stop() {
-        engine.stop(); // Gửi lệnh dừng vào Model
+        engine.stop(); // gửi lệnh dừng vào Model
         isRunning = false;
         
-        // Reset lại giao diện nút bấm
+        // Reset lại giao diện nút
         view.getBtnSolve().setText("GIẢI (Start)");
         view.getBtnGenerate().setEnabled(true);
         view.getBtnClear().setEnabled(true);

@@ -34,7 +34,7 @@ public class Individual implements Comparable<Individual>{
         return fitness;
     }
 
-    // Hàm thực hiện đột biến trên cá thể
+    // pthuc thực hiện đột biến trên cá thể
     public void mutate(double mutationRate) {
         Random random = new Random();
         for (Gene gene : genes) {
@@ -45,13 +45,14 @@ public class Individual implements Comparable<Individual>{
         }
     }
 
-    // Hàm tính toán Fitness
-    // Max Fitness = 162 (9 hàng đã chuẩn, giờ tính 9 cột + 9 khối 3x3)
-    // Mỗi cột/khối có 9 số khác nhau -> +9 điểm. Tổng 18 * 9 = 162.
+    // pthuc tính toán Fitness
+    // Max Fitness = 162 (9 hàng đã đúng, giờ tính 9 cột + 9 ô 3x3)
+    // Mỗi cột có 9 số -> 9*9=81
+    // mỗi ô 3x3 có 9 số -> 9*9=81 -> 81 + 81 = 162
     public void calculateFitness() {
         int score = 0;
 
-        // 1. Kiểm tra các cột
+        // Kiểm tra cột
         for (int col = 0; col < 9; col++) {
             Set<Integer> num = new HashSet<>();
             for (int row = 0; row < 9; row++) {
@@ -60,12 +61,12 @@ public class Individual implements Comparable<Individual>{
             score += num.size(); // Càng nhiều số khác nhau càng điểm cao
         }
 
-        // 2. Kiểm tra các khối 3x3
+        //Kiểm tra ô 3x3
         for (int blockRow = 0; blockRow < 3; blockRow++) {
             for (int blockCol = 0; blockCol < 3; blockCol++) {
                 Set<Integer> num = new HashSet<>();
                 
-                // Duyệt qua 9 ô trong khối
+                // Duyệt 9 số trong ô 3x3
                 for (int i = 0; i < 3; i++) {
                     for (int j = 0; j < 3; j++) {
                         int row = blockRow * 3 + i;
@@ -80,7 +81,7 @@ public class Individual implements Comparable<Individual>{
         this.fitness = score;
     }
 
-    // Để sắp xếp giảm dần theo Fitness
+    // Để sắp xếp giảm dần theo fitness
     @Override
     public int compareTo(Individual other) {
         return other.fitness - this.fitness; // Sắp xếp ngược để lấy fitness cao -> thấp
