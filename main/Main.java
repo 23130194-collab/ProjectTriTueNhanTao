@@ -1,8 +1,8 @@
 package sudoku.main;
 
 import javax.swing.SwingUtilities;
-import controller.SudokuController;
-import view.SudokuFrame;
+import sudoku.controller.SudokuController;
+import sudoku.view.SudokuFrame;
 
 public class Main {
     public static void main(String[] args) {
